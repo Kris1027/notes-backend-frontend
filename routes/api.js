@@ -5,8 +5,8 @@ const noteActions = require('../actions/api/noteActions');
 
 router.get('/notes', noteActions.getAllNotes);
 router.get('/notes/:id', noteActions.getNote);
-router.get('/notes', noteActions.saveNote);
-router.get('/notes', noteActions.updateNote);
-router.get('/notes', noteActions.deleteNote);
+router.post('/notes', noteActions.saveNote);
+router.put('/notes/:id', noteActions.updateNote);
+router.delete('/notes/:id', noteActions.deleteNote);
 
 module.exports = router;
