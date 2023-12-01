@@ -1,6 +1,11 @@
 import NewNote from './Note/NewNote';
 import Note from './Note/Note';
 import { useEffect, useState } from 'react';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 import axios from '../../axios';
 
@@ -19,10 +24,14 @@ export default function Notes() {
 
   async function handleAddNote(note) {
     const updatedNotes = [...notes, note];
-    const res = await axios.post('/notes', note);
-    const newNote = res.data;
-    notes.push(newNote);
-    setNotes(updatedNotes);
+    try {
+      const res = await axios.post('/notes', note);
+      const newNote = res.data;
+      notes.push(newNote);
+      setNotes(updatedNotes);
+    } catch (err) {
+      NotificationManager.error(err.response.data.message);
+    }
   }
 
   async function handleDeleteNote(_id) {
@@ -33,6 +42,8 @@ export default function Notes() {
 
   return (
     <div>
+      <NotificationContainer />
+
       <p>Moje notatki:</p>
 
       <NewNote onAdd={(note) => handleAddNote(note)} />

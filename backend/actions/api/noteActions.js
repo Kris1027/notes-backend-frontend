@@ -11,7 +11,7 @@ class noteActions {
       note = new Note({ title, body });
       await note.save();
     } catch (err) {
-      return res.status(200).json({ message: err.message });
+      return res.status(422).json({ message: err.message });
     }
 
     res.status(201).json(note);
