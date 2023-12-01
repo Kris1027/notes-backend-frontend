@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 
-export default function EditNote({ note, onEdit, onClose, heading, body, id }) {
+export default function EditNote({
+  note,
+  onEdit,
+  onClose,
+  heading,
+  body,
+  _id,
+}) {
   const [title, setTitle] = useState(heading);
   const [desc, setDesc] = useState(body);
 
@@ -16,7 +23,7 @@ export default function EditNote({ note, onEdit, onClose, heading, body, id }) {
       ...note,
       title: title,
       body: desc,
-      id: id,
+      _id: _id,
     };
     onEdit(editedNote);
   };

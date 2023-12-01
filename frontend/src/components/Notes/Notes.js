@@ -1,22 +1,12 @@
 import EditNote from './Note/EditNote';
 import NewNote from './Note/NewNote';
 import Note from './Note/Note';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
+import axios from '../../axios';
 
 export default function Notes() {
-  const [notes, setNotes] = useState([
-    {
-      id: '2234',
-      title: 'Wykąpać psa',
-      body: 'pamiętaj wykąpać psa specjalnym szamponem',
-    },
-    {
-      id: '5644',
-      title: 'Zrobić zakupy',
-      body: 'kupić masło, mleko, kabanosy',
-    },
-  ]);
+  const [notes, setNotes] = useState([]);
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedNote, setSelectedNote] = useState({});
@@ -31,23 +21,43 @@ export default function Notes() {
     setShowEditModal(false);
   };
 
-  const handleAddNote = (note) => {
+  async function handleAddNote(note) {
     const updatedNotes = [...notes, note];
-    setNotes(updatedNotes);
-  };
 
-  const handleEditNote = (editedNote) => {
+    const res = await axios.post('/notes', note);
+    const newNote = res.data;
+    notes.push(newNote);
+
+    setNotes(updatedNotes);
+  }
+
+  async function handleEditNote(editedNote) {
+    await axios.put(`/notes/${editedNote.id}`, editedNote);
+
     const updatedNotes = notes.map((note) =>
-      note.id === editedNote.id ? editedNote : note
+      note._id === editedNote._id ? editedNote : note
     );
     setNotes(updatedNotes);
     closeModal();
-  };
+  }
 
-  const handleDeleteNote = (id) => {
-    const updatedNotes = notes.filter((note) => note.id !== id);
+  async function handleDeleteNote(_id) {
+    const updatedNotes = notes.filter((note) => note._id !== _id);
+
+    await axios.delete(`/notes/${_id}`);
+
     setNotes(updatedNotes);
-  };
+  }
+
+  useEffect(() => {
+    async function fetchNotes() {
+      const res = await axios.get('/notes');
+      const notes = res.data;
+      setNotes(notes);
+    }
+
+    fetchNotes();
+  }, []);
 
   return (
     <div>
@@ -59,7 +69,7 @@ export default function Notes() {
         <EditNote
           heading={selectedNote.title}
           body={selectedNote.body}
-          id={selectedNote.id}
+          _id={selectedNote._id}
           note={selectedNote}
           onEdit={(editedNote) => handleEditNote(editedNote)}
           onClose={closeModal}
@@ -68,11 +78,12 @@ export default function Notes() {
 
       {notes.map((note) => (
         <Note
-          key={note.id}
+          key={note._id}
           title={note.title}
           body={note.body}
+          _id={note._id}
           onEdit={() => openModal(note)}
-          onDelete={() => handleDeleteNote(note.id)}
+          onDelete={() => handleDeleteNote(note._id)}
         />
       ))}
     </div>
