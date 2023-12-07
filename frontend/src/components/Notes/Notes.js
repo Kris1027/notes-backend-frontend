@@ -41,10 +41,12 @@ export default function Notes() {
   }
 
   return (
-    <div>
+    <div className='flex flex-col justify-center bg-pink-950 gap-1'>
       <NotificationContainer />
 
-      <p>Moje notatki:</p>
+      <h1 className='text-3xl font-bold text-pink-500 text-center'>
+        ToDo List📮
+      </h1>
 
       <NewNote onAdd={(note) => handleAddNote(note)} />
 
