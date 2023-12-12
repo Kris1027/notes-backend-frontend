@@ -9,19 +9,26 @@ export default function Note({ title, body, onDelete, onEdit }) {
   };
 
   return (
-    <div className='bg-pink-400 p-2 w-100 rounded-sm'>
+    <div className='bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200 p-2 w-100 rounded-sm md:w-3/5 md:m-auto'>
       <div className='flex justify-between'>
         <h2
-          className=' text-lg cursor-pointer text-pink-900 font-semibold uppercase'
+          className=' text-lg cursor-pointer bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200 font-semibold uppercase'
           onClick={handleShowDesc}
         >
           {title}
         </h2>
-        <button className='text-pink-900' onClick={onDelete}>
+        <button
+          className='bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200'
+          onClick={onDelete}
+        >
           <FaRegTrashAlt />
         </button>
       </div>
-      {showDesc && <p className='text-pink-600'>{body}</p>}
+      {showDesc && (
+        <p className='bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200'>
+          {body}
+        </p>
+      )}
     </div>
   );
 }

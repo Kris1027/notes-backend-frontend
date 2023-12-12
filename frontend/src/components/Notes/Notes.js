@@ -9,7 +9,7 @@ import 'react-notifications/lib/notifications.css';
 
 import axios from '../../axios';
 
-export default function Notes() {
+export default function Notes({ toggleDarkMode, darkMode }) {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -41,12 +41,14 @@ export default function Notes() {
   }
 
   return (
-    <div className='flex flex-col justify-center bg-pink-950 gap-1'>
+    <div className='flex flex-col justify-center bg-purple-200 dark:bg-purple-950 gap-1 py-10 px-2'>
       <NotificationContainer />
 
-      <h1 className='text-3xl font-bold text-pink-500 text-center'>
-        ToDo List📮
+      <h1 className='text-3xl font-bold text-purple-950 dark:text-purple-200 text-center'>
+        ToDo List
       </h1>
+
+      <button onClick={toggleDarkMode}>{darkMode ? '🌚' : '🌞'}</button>
 
       <NewNote onAdd={(note) => handleAddNote(note)} />
 

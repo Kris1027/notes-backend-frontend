@@ -22,38 +22,48 @@ export default function NewNote({ onAdd }) {
   };
 
   return showForm ? (
-    <div className='flex flex-wrap justify-center gap-2 px-10'>
-      <label className='font-semibold text-pink-200'>Title:</label>
-      <input
-        className='basis-full bg-pink-900 text-pink-200'
-        type='text'
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+    <div className='flex flex-col items-center'>
+      <div className='flex flex-col w-full md:w-3/5 text-center'>
+        <label className='font-bold bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200'>
+          Title:
+        </label>
+        <input
+          className='basis-full bg-purple-400 dark:bg-purple-800 text-purple-950 dark:text-purple-200 p-2 focus:outline-none rounded-lg'
+          type='text'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-      <label className='font-semibold text-pink-200'>Description:</label>
-      <textarea
-        className='basis-full bg-pink-900 text-pink-200'
-        type='text'
-        value={desc}
-        onChange={(e) => setDesc(e.target.value)}
-      />
+        <label className='font-bold bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200'>
+          Description:
+        </label>
+        <textarea
+          className='basis-full bg-purple-400 dark:bg-purple-800 text-purple-950 dark:text-purple-200 p-2 focus:outline-none rounded-lg'
+          type='text'
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+        />
+      </div>
 
-      <button className='text-6xl text-pink-500' onClick={addNote}>
-        <IoIosAddCircle />
-      </button>
-
-      <button
-        className='text-6xl text-pink-500'
-        onClick={() => setShowForm(!showForm)}
-      >
-        <IoIosExit />
-      </button>
+      <div>
+        <button
+          className='text-6xl bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200'
+          onClick={() => setShowForm(!showForm)}
+        >
+          <IoIosExit />
+        </button>
+        <button
+          className='text-6xl bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200'
+          onClick={addNote}
+        >
+          <IoIosAddCircle />
+        </button>
+      </div>
     </div>
   ) : (
     <div className='flex justify-center'>
       <button
-        className='text-6xl text-pink-500'
+        className='text-6xl bg-purple-200 dark:bg-purple-950 text-purple-950 dark:text-purple-200'
         onClick={() => setShowForm(!showForm)}
       >
         <IoIosAddCircle />
