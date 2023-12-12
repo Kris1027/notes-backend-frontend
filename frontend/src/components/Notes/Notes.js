@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import axios from '../../axios';
 import { useTheme } from '../contexts/themeContext';
 
+import clsx from 'clsx';
+
 import {
   NotificationContainer,
   NotificationManager,
@@ -44,7 +46,7 @@ export default function Notes() {
   }
 
   return (
-    <div className={darkMode && 'dark'}>
+    <div className={clsx({ dark: darkMode })}>
       <div className='flex flex-col justify-center bg-purple-200 dark:bg-purple-950 gap-1 py-10 px-2'>
         <NotificationContainer />
 
